@@ -17,6 +17,15 @@ public class Amenity {
 	
 	@Column(length = 1000)
 	private String description;
+	
+	@Column
+	private String startTime;
+	
+	@Column
+	private String endTime;
+	
+	@Column
+	private double price;
 
 	public int getId() {
 		return id;
@@ -41,6 +50,28 @@ public class Amenity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
+	public String getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(String startTime) {
+		this.startTime = startTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
 }
