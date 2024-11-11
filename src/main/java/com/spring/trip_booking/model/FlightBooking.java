@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class FlightBookings {
+public class FlightBooking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +25,9 @@ public class FlightBookings {
     private double totalAmount;
 
     // Constructor
-    public FlightBookings() {}
+    public FlightBooking() {}
 
-    public FlightBookings(Flight flight, LocalDateTime bookingDate, boolean paymentStatus, double totalAmount) {
+    public FlightBooking(Flight flight, LocalDateTime bookingDate, boolean paymentStatus, double totalAmount) {
         this.flight = flight;
         this.bookingDate = bookingDate;
         this.paymentStatus = paymentStatus;

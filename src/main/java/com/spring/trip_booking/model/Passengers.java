@@ -17,7 +17,7 @@ public class Passengers {
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
-    private FlightBookings booking;
+    private FlightBooking booking;
 
     // Constructor
     public Passengers() {}
@@ -71,11 +71,11 @@ public class Passengers {
         this.passportNumber = passportNumber;
     }
 
-    public FlightBookings getBooking() {
+    public FlightBooking getBooking() {
         return booking;
     }
 
-    public void setBooking(FlightBookings booking) {
+    public void setBooking(FlightBooking booking) {
         this.booking = booking;
     }
 }
