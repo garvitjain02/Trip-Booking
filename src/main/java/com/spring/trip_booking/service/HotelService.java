@@ -1,5 +1,6 @@
 package com.spring.trip_booking.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.model.Hotel;
+import com.spring.trip_booking.model.Location;
 import com.spring.trip_booking.repository.HotelRepository;
 
 @Service
@@ -25,5 +27,13 @@ public class HotelService {
 			throw new ResourceNotFoundException("There is No Hotel with this Id");
 		
 		return optional.get();
+	}
+
+	public List<Hotel> getAllHotels() {
+		return hotelRepository.findAll();
+	}
+
+	public List<Hotel> getHotelByLocation(Location location) {
+		return hotelRepository.findByLocation(location);
 	}
 }

@@ -49,7 +49,7 @@ public class HotelBooking {
 	private User user;
 	
 	@OneToOne
-	private Rating rating;
+	private RatingTable rating;
 
 	public int getId() {
 		return id;

@@ -33,7 +33,7 @@ public class Hotel {
 	private Location location;
 	
 	@ManyToOne
-	private User owner;
+	private UserInfo owner;
 
 	public int getId() {
 		return id;
