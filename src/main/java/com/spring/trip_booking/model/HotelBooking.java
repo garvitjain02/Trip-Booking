@@ -2,6 +2,7 @@ package com.spring.trip_booking.model;
 
 import java.time.LocalDate;
 
+import com.spring.trip_booking.enums.ApprovalStatus;
 import com.spring.trip_booking.enums.TransactionStatus;
 import com.spring.trip_booking.enums.TransactionType;
 
@@ -46,7 +47,7 @@ public class HotelBooking {
 	private Hotel hotel;
 	
 	@ManyToOne
-	private User user;
+	private UserInfo user;
 	
 	@OneToOne
 	private RatingTable rating;
@@ -123,19 +124,19 @@ public class HotelBooking {
 		this.hotel = hotel;
 	}
 
-	public User getUser() {
+	public UserInfo getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(UserInfo user) {
 		this.user = user;
 	}
 
-	public Rating getRating() {
+	public RatingTable getRating() {
 		return rating;
 	}
 
-	public void setRating(Rating rating) {
+	public void setRating(RatingTable rating) {
 		this.rating = rating;
 	}
 	

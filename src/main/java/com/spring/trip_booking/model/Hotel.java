@@ -91,11 +91,11 @@ public class Hotel {
 		this.location = location;
 	}
 
-	public User getOwner() {
+	public UserInfo getOwner() {
 		return owner;
 	}
 
-	public void setOwner(User owner) {
+	public void setOwner(UserInfo owner) {
 		this.owner = owner;
 	}
 	
