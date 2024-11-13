@@ -20,7 +20,7 @@ public class FlightPricing implements Serializable {
     @Column(name = "class", length = 10)
     private SeatClass seatClass;
 
-    @Column(name = "base_price", precision = 10, scale = 2)
+    @Column(name = "base_price", precision = 10)
     private Double basePrice;
 
     @Column(name = "baggage_allowance")

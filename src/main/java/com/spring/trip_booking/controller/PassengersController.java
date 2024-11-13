@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/passengers")
@@ -22,30 +23,37 @@ public class PassengersController {
         return ResponseEntity.ok(savedPassenger);
     }
 
-    /*// GET API to get passenger details by ID
-    @GetMapping("/{passengerId}")
-    public ResponseEntity<Passengers> getPassengerById(@PathVariable int passengerId) {
-        return ResponseEntity.of(passengersService.getPassengerById(passengerId));
+    // GET API to get all passengers
+    @GetMapping("/all")
+    public ResponseEntity<List<Passengers>> getAllPassengers() {
+        List<Passengers> passengersList = passengersService.getAllPassengers();
+        return ResponseEntity.ok(passengersList);
     }
 
-    // GET API to get all passengers for a specific flight
-    @GetMapping("/flight/{flightId}")
-    public ResponseEntity<List<Passengers>> getPassengersByFlightId(@PathVariable int flightId) {
-        return ResponseEntity.ok(passengersService.getPassengersByFlightId(flightId));
+    // GET API to get a passenger by ID
+    @GetMapping("/{passengerId}")
+    public ResponseEntity<Passengers> getPassengerById(@PathVariable Long passengerId) {
+        Optional<Passengers> passenger = passengersService.getPassengerById(passengerId);
+        return passenger.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     // PUT API to update passenger details
     @PutMapping("/update/{passengerId}")
-    public ResponseEntity<Passengers> updatePassenger(@PathVariable int passengerId, @RequestBody Passengers passenger) {
-        Passengers updatedPassenger = passengersService.updatePassenger(passengerId, passenger);
-        return ResponseEntity.ok(updatedPassenger);
+    public ResponseEntity<Passengers> updatePassenger(@PathVariable Long passengerId, @RequestBody Passengers passengerDetails) {
+        Passengers updatedPassenger = passengersService.updatePassenger(passengerId, passengerDetails);
+        if (updatedPassenger != null) {
+            return ResponseEntity.ok(updatedPassenger);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     // DELETE API to delete a passenger by ID
     @DeleteMapping("/delete/{passengerId}")
-    public ResponseEntity<String> deletePassenger(@PathVariable int passengerId) {
-        passengersService.deletePassenger(passengerId);
-        return ResponseEntity.ok("Passenger deleted successfully");
+    public ResponseEntity<Void> deletePassenger(@PathVariable Long passengerId) {
+        boolean isDeleted = passengersService.deletePassenger(passengerId);
+        if (isDeleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
-        */
 }

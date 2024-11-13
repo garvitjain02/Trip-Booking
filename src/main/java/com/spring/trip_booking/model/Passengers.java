@@ -22,7 +22,7 @@ public class Passengers {
     // Constructor
     public Passengers() {}
 
-    public Passengers(String firstName, String lastName, LocalDate dateOfBirth, String passportNumber, FlightBookings booking) {
+    public Passengers(String firstName, String lastName, LocalDate dateOfBirth, String passportNumber, FlightBooking booking) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
