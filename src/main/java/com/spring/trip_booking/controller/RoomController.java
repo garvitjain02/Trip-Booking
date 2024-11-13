@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,7 @@ public class RoomController {
 	@Autowired
 	private HotelService hotelService;
 	
-	@PostMapping("/rooms/add/{hotelId}")
+	@PostMapping("/rooms/batch/add/{hotelId}")
 	public ResponseEntity<?> addRooms (@PathVariable int hotelId, @RequestBody List<Room> rooms) {
 		Hotel hotel = null;
 		try {
@@ -37,5 +38,11 @@ public class RoomController {
 		return ResponseEntity.ok(list);
 	}
 	
+	@GetMapping("/rooms/{hid}")
+	public ResponseEntity<?> getRoomsByHotel(@PathVariable int hid) throws ResourceNotFoundException {
+		Hotel hotel = hotelService.validate(hid);
+		List<Room> list = roomService.getRoomsByHotel(hotel);
+		return ResponseEntity.ok(list);
+	}
 	
 }

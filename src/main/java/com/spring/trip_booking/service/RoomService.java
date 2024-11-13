@@ -29,6 +29,10 @@ public class RoomService {
 			throw new ResourceNotFoundException("No Such Room Exists");
 		return optional.get();
 	}
+
+	public List<Room> getRoomsByHotel(Hotel hotel) {
+		return roomRepository.findAllByHotel(hotel);
+	}
 	
 	
 	

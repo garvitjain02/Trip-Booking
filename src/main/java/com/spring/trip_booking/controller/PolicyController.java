@@ -1,5 +1,7 @@
 package com.spring.trip_booking.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,5 +19,10 @@ public class PolicyController {
 	@PostMapping("/policy/add")
 	public Policy addPolicy (@RequestBody Policy policy) {
 		return policyService.addPolicy (policy);
+	}
+	
+	@PostMapping("/policy/batch/add")
+	public List<Policy> addBatchPolicy (@RequestBody List<Policy> policy) {
+		return policyService.addBatchPolicy (policy);
 	}
 }

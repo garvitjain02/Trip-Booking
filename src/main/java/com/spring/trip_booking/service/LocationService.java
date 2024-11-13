@@ -1,5 +1,6 @@
 package com.spring.trip_booking.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +22,13 @@ public class LocationService {
 			throw new ResourceNotFoundException("Invalid Location");
 		
 		return optional.get();
+	}
+
+	public Location addLocation(Location location) {
+		return locationRepository.save(location);
+	}
+
+	public List<Location> getLocationByName(String keyword) {
+		return locationRepository.getLocationByName(keyword);
 	}
 }
