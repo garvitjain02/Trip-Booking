@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.spring.trip_booking.exception.ResourceNotFoundException;
@@ -46,6 +48,10 @@ public class HotelService {
 
 	public List<Amenity> hotelHasAmenities(int hid) {
 		return hotelRepository.hotelHasAmenities(hid);
+	}
+
+	public Page<Hotel> getAllHotelsInPages(Pageable pageable) {
+		return hotelRepository.findAll(pageable);
 	}
 
 }
