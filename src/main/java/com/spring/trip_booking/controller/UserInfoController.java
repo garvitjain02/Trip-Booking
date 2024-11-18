@@ -28,7 +28,7 @@ public class UserInfoController {
 
     @PostMapping("/add")
     public UserInfo addUser(@RequestBody UserInfo userInfo) {
-        logger.info("Adding new user: {}", userInfo.getUserName());
+        logger.info("Adding new user: {}", userInfo.getUsername());
         return userInfoService.insert(userInfo);
     }
 
@@ -59,8 +59,8 @@ public class UserInfoController {
         try {
             UserInfo existingUserInfo = userInfoService.validate(id);
 
-            if (newUserInfo.getUserName() != null) {
-                existingUserInfo.setUserName(newUserInfo.getUserName());
+            if (newUserInfo.getUsername() != null) {
+                existingUserInfo.setUsername(newUserInfo.getUsername());
                 logger.info("Updated userName for user with ID: {}", id);
             }
             if (newUserInfo.getPassword() != null) {

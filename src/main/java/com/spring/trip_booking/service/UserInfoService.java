@@ -2,6 +2,7 @@ package com.spring.trip_booking.service;
 
 import java.util.List;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,12 +16,19 @@ import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.model.UserInfo;
 import com.spring.trip_booking.repository.UserInfoRepository;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import com.spring.trip_booking.exception.InvalidUsernameException;
+
 @Service
 public class UserInfoService {
 
     @Autowired
     private UserInfoRepository userInfoRepository;
-
+    
+    @Autowired
+    private BCryptPasswordEncoder passEncoder;
+    
     public UserInfo insert(UserInfo userInfo) {
         return userInfoRepository.save(userInfo);
     }
@@ -49,4 +57,24 @@ public class UserInfoService {
         return userInfoRepository.findUsersWithPerformanceByRole(role);
     }
 
+
+    public List<UserInfo> getAllUsers() {
+        return userInfoRepository.findAll();
+    }
+
+
+	public UserInfo signUp(UserInfo user) throws InvalidUsernameException {
+		Optional<UserInfo> optional = userInfoRepository.findByUsername(user.getUsername());
+		if(optional.isPresent()) {
+			throw new InvalidUsernameException("Username already in use");
+		}
+		
+		//encrypt the password 
+		String encryptedPass = passEncoder.encode(user.getPassword());
+		user.setPassword(encryptedPass);
+		
+		return userInfoRepository.save(user);
+	}
+
 }
+
