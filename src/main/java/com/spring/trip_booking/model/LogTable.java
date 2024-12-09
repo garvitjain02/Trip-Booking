@@ -3,26 +3,40 @@ package com.spring.trip_booking.model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
+import com.spring.trip_booking.enums.ActivityType;
+
 @Entity
 public class LogTable {  // LogTable M:1 UserInfo, M:1 EntityTable
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "entity_id", referencedColumnName = "id")
-    private EntityTable entity;
+    
+    @Enumerated(EnumType.STRING)
+    private ActivityType activityType;
 
     @Column()
     private LocalDateTime timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    public ActivityType getActivityType() {
+		return activityType;
+	}
+
+	public void setActivityType(ActivityType activityType) {
+		this.activityType = activityType;
+	}
+
+    @ManyToOne// Added cascade for owner
     private UserInfo user;
 
     @Column(length = 500)
     private String activityDesc;
+    
+    @ManyToOne // Added cascade for owner
+    private Flight flight;
+    
+    @ManyToOne // Added cascade for owner
+    private Hotel hotel;
 
     // Getters and Setters
 
@@ -30,16 +44,24 @@ public class LogTable {  // LogTable M:1 UserInfo, M:1 EntityTable
         return id;
     }
 
-    public void setId(int id) {
+    public Flight getFlight() {
+		return flight;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public void setId(int id) {
         this.id = id;
-    }
-
-    public EntityTable getEntity() {
-        return entity;
-    }
-
-    public void setEntity(EntityTable entity) {
-        this.entity = entity;
     }
 
     public LocalDateTime getTimestamp() {

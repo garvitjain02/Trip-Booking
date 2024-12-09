@@ -4,29 +4,44 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-	    name = "RatingTable",
-	    uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "entity_id"})}
-	)
-public class RatingTable {  // RatingTable M:1 UserInfo, M:1 EntityTable
+public class RatingTable {  
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
-    private EntityTable entity;
+    @ManyToOne // Added cascade for owner
+    private Hotel hotel;
+    
+    public Hotel getHotel() {
+		return hotel;
+	}
 
-    @Column(nullable = false)
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public Flight getFlight() {
+		return flight;
+	}
+
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+
+    @ManyToOne // Added cascade for owner
+    private Flight flight;
+
+    @Column()
     private float ratingValue;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime ratingDate;
 
     @Column(length = 1000)
     private String feedbackText;
 
-    @ManyToOne
+    @ManyToOne  // Added cascade for owner
     private UserInfo user;
 
     // Getters and Setters
@@ -37,14 +52,6 @@ public class RatingTable {  // RatingTable M:1 UserInfo, M:1 EntityTable
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public EntityTable getEntity() {
-        return entity;
-    }
-
-    public void setEntity(EntityTable entity) {
-        this.entity = entity;
     }
 
     public float getRatingValue() {

@@ -1,24 +1,26 @@
 package com.spring.trip_booking.controller;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.spring.trip_booking.dto.ResponseMessageDto;
 import com.spring.trip_booking.enums.Role;
 import com.spring.trip_booking.exception.ResourceNotFoundException;
+import com.spring.trip_booking.model.Certificate;
 import com.spring.trip_booking.model.UserInfo;
 import com.spring.trip_booking.service.UserInfoService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class UserInfoController {
 
     @Autowired
@@ -31,25 +33,23 @@ public class UserInfoController {
         logger.info("Adding new user: {}", userInfo.getUsername());
         return userInfoService.insert(userInfo);
     }
-
+    
+    //using
     @GetMapping("/all")
-    public ResponseEntity<Page<UserInfo>> getAllUsers(
-            @RequestParam(required = false, defaultValue = "0") int page,
-            @RequestParam(required = false, defaultValue = "10") int size) {
-        Pageable pageable = PageRequest.of(page, size);
-        logger.info("Fetching all users with pagination (page: {}, size: {})...", page, size);
-        Page<UserInfo> usersPage = userInfoService.getAllUsers(pageable);
-        return ResponseEntity.ok(usersPage);
+    public List<UserInfo> getAllUsers(){
+    	return userInfoService.getAllUsers();
     }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteUser(@PathVariable int id, ResponseMessageDto dto) throws ResourceNotFoundException {
-        logger.info("Deleting user with ID: {}", id);
-        userInfoService.validate(id);  // If validation fails, ResourceNotFoundException will be thrown
-        userInfoService.delete(id);
-        dto.setMsg("User deleted");
-        logger.info("User deleted successfully with ID: {}", id);
-        return ResponseEntity.ok(dto);
+    
+    //using
+    @GetMapping("/byUsername/{username}")
+    public Optional<UserInfo> getByUsername(@PathVariable String username){
+    	return userInfoService.getByUsername(username);
+    }
+    
+    //using
+    @GetMapping("/allCustomers")
+    public List<UserInfo> getAllCustomers(){
+    	return userInfoService.getAllCustomers();
     }
 
 
@@ -67,8 +67,8 @@ public class UserInfoController {
                 existingUserInfo.setPassword(newUserInfo.getPassword());
                 logger.info("Updated password for user with ID: {}", id);
             }
-            if (newUserInfo.getFirstName() != null) {
-                existingUserInfo.setFirstName(newUserInfo.getFirstName());
+            if (newUserInfo.getName() != null) {
+                existingUserInfo.setName(newUserInfo.getName());
                 logger.info("Updated firstName for user with ID: {}", id);
             }
             if (newUserInfo.getLastName() != null) {
@@ -94,16 +94,57 @@ public class UserInfoController {
             return ResponseEntity.badRequest().body(dto);
         }
     }
-
-    @GetMapping("/role/{role}")
-    public ResponseEntity<List<UserInfo>> getUsersByRole(@PathVariable Role role) {
-        logger.info("Fetching users with role: {}", role);
-        List<UserInfo> users = userInfoService.getUsersByRole(role);
-        return ResponseEntity.ok(users);
+    
+    //using
+    @DeleteMapping("/deleteuserbyusername/{username}")
+    public void deleteUsersByUsername(@PathVariable String username) {
+		userInfoService.deleteUsersByUsername(username);	
     }
-
-    @GetMapping("/roleperformance/{role}")
-    public List<Object[]> getUsersWithPerformanceByRole(@PathVariable Role role) {
-        return userInfoService.getUsersWithPerformanceByRole(role);
+    
+    //using
+    @GetMapping("/allVendors")
+    public List<UserInfo> getAllVendors(){
+    	return userInfoService.getAllVendors();
     }
+    
+    //using
+    @GetMapping("/vendors-request")
+    public List<UserInfo> getVendorRequests(){
+    	return userInfoService.getVendorRequests();
+    }
+    
+    //using- deleting vendor requests
+    @DeleteMapping("/deleteById/{id}")
+    public void deleteById(@PathVariable int id) {
+    	userInfoService.delete(id); 
+    }
+    
+    //using
+    /*@PostMapping("/approveVendor")
+    public UserInfo approveVendor(@RequestBody UserInfo userInfo) {
+		return userInfoService.insert(userInfo);
+    }*/
+    
+    //using
+    @PostMapping("/approveVendorId")
+    public UserInfo approveVendorId(@RequestParam int id) {
+    	return userInfoService.approveVendorId(id);
+    }
+    
+    //trying for certificate
+    @PostMapping("/addCertificate/{id}")
+    public Certificate addCertificate(@RequestParam MultipartFile file, @PathVariable int id) throws IOException {
+    	return userInfoService.addCertificate(file,id);
+    }
+    
+    @GetMapping("/getCertificate")
+    public List<Certificate> getCertificate(){
+    	return userInfoService.getAllCertificates();
+    }
+    
+    @GetMapping("/getCertificateByVendorId/{id}")
+    public Certificate getCertificateByVendorId(@PathVariable int id){
+    	return userInfoService.getCertificateByVendorId(id);
+    }
+    
 }

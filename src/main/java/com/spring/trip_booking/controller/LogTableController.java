@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/log")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class LogTableController {
 
     private static final Logger logger = LoggerFactory.getLogger(LogTableController.class);
@@ -31,57 +33,41 @@ public class LogTableController {
     }
 
     // Get all LogTable entries with pagination
-    @GetMapping("/all")
+    /*@GetMapping("/all")
     public Page<LogTable> getAllLogTables(Pageable pageable) {
         logger.info("Fetching all log entries with pagination: {}", pageable);
         return logTableService.getAllLogTables(pageable);
+    }*/
+    
+    @GetMapping("/all")
+    public List<LogTable> getAllLogTable(){
+    	return logTableService.getAllLogTable();
     }
-
-    // Delete a LogTable entry by ID
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteLog(@PathVariable int id, ResponseMessageDto dto) throws ResourceNotFoundException{
-        logger.info("Deleting log entry with ID: {}", id);
-        logTableService.validate(id); // Global exception will handle any errors
-        logTableService.delete(id);
-        dto.setMsg("Log entry deleted");
-        return ResponseEntity.ok(dto);
-    }
-
-    // Update a LogTable entry by ID
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateLog(@PathVariable int id, @RequestBody LogTable newLogTable) throws ResourceNotFoundException{
-        logger.info("Updating log entry with ID: {}", id);
-        LogTable existingLogTable = logTableService.validate(id);
-        
-        // Update fields if provided
-        if (newLogTable.getActivityDesc() != null) {
-            existingLogTable.setActivityDesc(newLogTable.getActivityDesc());
-        }
-        if (newLogTable.getEntity() != null) {
-            existingLogTable.setEntity(newLogTable.getEntity());
-        }
-        if (newLogTable.getUser() != null) {
-            existingLogTable.setUser(newLogTable.getUser());
-        }
-        if (newLogTable.getTimestamp() != null) {
-            existingLogTable.setTimestamp(newLogTable.getTimestamp());
-        }
-
-        existingLogTable = logTableService.insert(existingLogTable);
-        return ResponseEntity.ok(existingLogTable);
-    }
-
-    @GetMapping("/entity/{entityId}")
-    public ResponseEntity<?> getLogsByEntity(@PathVariable int entityId) throws ResourceNotFoundException {
-        logger.info("Fetching logs for entity ID: {}", entityId);
-        List<LogTable> logs = logTableService.getLogsByEntity(entityId);
-        return ResponseEntity.ok(logs);
-    }
-
+    
     // Batch insert logs
     @PostMapping("/batch/add")
     public List<LogTable> batchInsert(@RequestBody List<LogTable> logTables) {
         logger.info("Batch inserting log entries");
         return logTableService.insertInBatch(logTables);
     }
+    
+    @GetMapping("/getUserLogsByUserId/{id}")
+    public List<LogTable> getUserLogsByUserId(@PathVariable int id){
+    	return logTableService.getUserLogsByUserId(id);
+    }
+    
+    @GetMapping("/pagedall")
+    public Page<LogTable> pagedGetAll(@RequestParam(required = false, defaultValue = "0") String page,  @RequestParam(required = false, defaultValue = "1000000") String size){
+		Pageable pageable = null; 
+		try {
+			pageable =   PageRequest.of(Integer.parseInt(page), Integer.parseInt(size));
+		}
+		catch(Exception e) {
+			throw e; 
+		}
+		Page<LogTable> list=logTableService.pagedGetAll(pageable);
+		return list;
+
+    }
+    
 }

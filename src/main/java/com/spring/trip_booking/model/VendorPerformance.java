@@ -3,20 +3,19 @@ package com.spring.trip_booking.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "vendor_performance")
 public class VendorPerformance {  // VendorPerformance M:1 UserInfo (Vendor)
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(nullable = false)
-    private Integer totalBookings;
+    @Column()
+    private int totalBookings;
 
-    @Column(nullable = false)
-    private Double averageRating;
+    @Column()
+    private double averageRating;
 
-    @OneToOne
+    @OneToOne // Added cascade for owner
     private UserInfo vendor;
 
     // Getters and Setters
@@ -29,19 +28,19 @@ public class VendorPerformance {  // VendorPerformance M:1 UserInfo (Vendor)
         this.id = id;
     }
 
-    public Integer getTotalBookings() {
+    public int getTotalBookings() {
         return totalBookings;
     }
 
-    public void setTotalBookings(Integer totalBookings) {
+    public void setTotalBookings(int totalBookings) {
         this.totalBookings = totalBookings;
     }
 
-    public Double getAverageRating() {
+    public double getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(Double averageRating) {
+    public void setAverageRating(double averageRating) {
         this.averageRating = averageRating;
     }
 

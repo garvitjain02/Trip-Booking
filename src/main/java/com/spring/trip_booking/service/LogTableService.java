@@ -24,32 +24,28 @@ public class LogTableService {
     }
 
     // Get all LogTable entries with pagination
-    public Page<LogTable> getAllLogTables(Pageable pageable) {
+    /*public Page<LogTable> getAllLogTables(Pageable pageable) {
         return logTableRepository.findAll(pageable);
-    }
-    
-    // Delete a LogTable entry by ID
-    public void delete(int id) {
-        logTableRepository.deleteById(id);
-    }
-
-    // Validate if a LogTable entry exists by ID
-    public LogTable validate(int id) throws ResourceNotFoundException {
-        Optional<LogTable> optional = logTableRepository.findById(id);
-        if (optional.isEmpty()) {
-            throw new ResourceNotFoundException("LogTable ID invalid");
-        }
-        return optional.get();
-    }
-
-    // Method to find logs by entity ID
-    public List<LogTable> getLogsByEntity(int entityId) {
-        return logTableRepository.findLogsByEntity(entityId);
-    }
-    
+    }*/
+  
     public List<LogTable> insertInBatch(List<LogTable> logTables) {
         return logTableRepository.saveAll(logTables);
     }
+
+	public List<LogTable> getAllLogTable() {
+		// TODO Auto-generated method stub
+		return logTableRepository.findAll();
+	}
+
+	public List<LogTable> getUserLogsByUserId(int id) {
+		// TODO Auto-generated method stub
+		return logTableRepository.getUserLogsByUserId(id);
+	}
+
+	public Page<LogTable> pagedGetAll(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return logTableRepository.findAll(pageable);
+	}
 
 
 }

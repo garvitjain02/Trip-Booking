@@ -1,13 +1,13 @@
 package com.spring.trip_booking.controller;
 
+import com.spring.trip_booking.model.Hotel;
 import com.spring.trip_booking.model.HotelRequest;
+
 import com.spring.trip_booking.dto.ResponseMessageDto;
 import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.service.HotelRequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hotel-requests")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class HotelRequestController {
 
     private static final Logger logger = LoggerFactory.getLogger(HotelRequestController.class);
@@ -30,13 +31,14 @@ public class HotelRequestController {
         return hotelRequestService.saveHotelRequest(hotelRequest);
     }
 
-    // Endpoint to retrieve all HotelRequests with pagination
+ // Endpoint to retrieve all HotelRequests without pagination
     @GetMapping("/all")
-    public ResponseEntity<Page<HotelRequest>> getAllHotelRequests(Pageable pageable) {
-        logger.info("Fetching all hotel requests with pagination: {}", pageable);
-        Page<HotelRequest> hotelRequests = hotelRequestService.getAllHotelRequests(pageable);
+    public ResponseEntity<List<HotelRequest>> getAllHotelRequests() {
+        logger.info("Fetching all hotel requests without pagination");
+        List<HotelRequest> hotelRequests = hotelRequestService.getAllHotelRequests();
         return ResponseEntity.ok(hotelRequests);
     }
+
 
     // Endpoint to get a HotelRequest by ID
     @GetMapping("/{id}")
@@ -64,4 +66,15 @@ public class HotelRequestController {
         List<HotelRequest> hotelRequests = hotelRequestService.getHotelRequestsByVendorId(vendorId);
         return ResponseEntity.ok(hotelRequests);
     }
+    
+    @PostMapping("/vendor-hotels-add")
+    public Hotel vendorsHotelsAdd(@RequestBody Hotel hotel) {
+		return hotelRequestService.vendorsHotelsAdd(hotel);
+    }
+    
+    @GetMapping("/getHotelsByVendor/{username}")
+	public List<Hotel> getHotelsByVendor(@PathVariable String username){
+		return hotelRequestService.getHotelsByVendor(username);
+	}
+    
 }

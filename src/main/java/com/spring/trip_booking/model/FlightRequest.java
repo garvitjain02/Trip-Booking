@@ -8,44 +8,41 @@ import java.time.LocalDateTime;
 public class FlightRequest {  // FlightRequest M:1 UserInfo (Vendor)
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @ManyToOne
     private UserInfo vendor;
 
-    @Lob
-    private byte[] approvalDocs;
-
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime requestDate;
 
-    @Column(nullable = false)
+    @Column()
     private String flightNumber;
 
-    @Column(nullable = false)
+	@Column()
     private String airline;
 
-    @Column(nullable = false)
+    @Column()
     private String origin;
 
-    @Column(nullable = false)
+    @Column()
     private String destination;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime departureTime;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDateTime arrivalTime;
     
     @Column()
-    private Integer duration;
+    private int duration;
 
-    @Column(nullable = false)
-    private Integer availableSeats;
+    @Column()
+    private int availableSeats;
 
-    @Column(nullable = false)
-    private Double price;
+    @Column()
+    private double price;
 
     // Getters and Setters
 
@@ -63,14 +60,6 @@ public class FlightRequest {  // FlightRequest M:1 UserInfo (Vendor)
 
     public void setVendor(UserInfo vendor) {
         this.vendor = vendor;
-    }
-
-    public byte[] getApprovalDocs() {
-        return approvalDocs;
-    }
-
-    public void setApprovalDocs(byte[] approvalDocs) {
-        this.approvalDocs = approvalDocs;
     }
 
     public LocalDateTime getRequestDate() {
@@ -129,27 +118,27 @@ public class FlightRequest {  // FlightRequest M:1 UserInfo (Vendor)
         this.arrivalTime = arrivalTime;
     }
 
-    public Integer getDuration() {
+    public int getDuration() {
         return duration;
     }
+    
+    public void setDuration(int duration) {
+		this.duration = duration;
+	}
 
-    public void setDuration(Integer duration) {
-        this.duration = duration;
-    }
-
-    public Integer getAvailableSeats() {
+    public int getAvailableSeats() {
         return availableSeats;
     }
 
-    public void setAvailableSeats(Integer availableSeats) {
+    public void setAvailableSeats(int availableSeats) {
         this.availableSeats = availableSeats;
     }
 
-    public Double getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 }

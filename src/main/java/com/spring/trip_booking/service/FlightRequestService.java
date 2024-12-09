@@ -1,8 +1,13 @@
 package com.spring.trip_booking.service;
 
+import com.spring.trip_booking.model.Flight;
 import com.spring.trip_booking.model.FlightRequest;
+import com.spring.trip_booking.model.LogTable;
+import com.spring.trip_booking.enums.ActivityType;
 import com.spring.trip_booking.exception.ResourceNotFoundException;
+import com.spring.trip_booking.repository.FlightRepository;
 import com.spring.trip_booking.repository.FlightRequestRepository;
+import com.spring.trip_booking.repository.LogTableRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +22,12 @@ public class FlightRequestService {
 
 	@Autowired
     private FlightRequestRepository flightRequestRepository;
+	
+	@Autowired
+	private FlightRepository flightRepository;
+	
+	@Autowired
+	LogTableRepository logTableRepository;
 
     // Save or update a FlightRequest
     public FlightRequest saveFlightRequest(FlightRequest flightRequest) {
@@ -24,28 +35,52 @@ public class FlightRequestService {
         if (flightRequest.getRequestDate() == null) {
             flightRequest.setRequestDate(LocalDateTime.now());
         }
-        return flightRequestRepository.save(flightRequest);
+        
+        flightRequest=flightRequestRepository.save(flightRequest);
+        
+		LogTable logTable=new LogTable();
+		logTable.setTimestamp(LocalDateTime.now());
+		logTable.setActivityType(ActivityType.FLIGHT_REQUEST);
+		logTable.setUser(flightRequest.getVendor());
+		logTable.setActivityDesc("Flight request sent by Vendor");
+		logTableRepository.save(logTable);
+		
+        return flightRequest;
     }
 
-    // Method to retrieve all FlightRequests with pagination
-    public Page<FlightRequest> getAllFlightRequests(Pageable pageable) {
-        return flightRequestRepository.findAll(pageable);
-    }
+	public List<FlightRequest> getAllFlightRequest() {
+		// TODO Auto-generated method stub
+		return flightRequestRepository.findAll();
+	}
+	
+	public FlightRequest getById(int id) {
+		return flightRequestRepository.getByIdn(id);
+	}
 
-    // Retrieve a FlightRequest by ID
-    public FlightRequest getFlightRequestById(int id) throws ResourceNotFoundException {
-        return flightRequestRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("FlightRequest with ID " + id + " not found"));
-    }
+	public void deleteById(int id) {
+		// TODO Auto-generated method stub
+				
+		LogTable logTable=new LogTable();
+		logTable.setTimestamp(LocalDateTime.now());
+		logTable.setActivityType(ActivityType.DELETE_FLIGHT_REQUEST);
+		logTable.setActivityDesc("Flight request deleted");
+		logTableRepository.save(logTable);
+		
+		flightRequestRepository.deleteById(id);
+	}
 
-    // Delete a FlightRequest by ID
-    public void deleteFlightRequestById(int id) {
-        flightRequestRepository.deleteById(id);
-    }
+	public Flight approveHotelRequest(Flight flight) {
+				
+		LogTable logTable=new LogTable();
+		logTable.setTimestamp(LocalDateTime.now());
+		logTable.setActivityType(ActivityType.APPROVE_FLIGHT_REQUEST);
+		logTable.setUser(flight.getVendor());
+		logTable.setActivityDesc("Flight request approved");
+		logTableRepository.save(logTable);
+		
+		// TODO Auto-generated method stub
+		return flightRepository.save(flight);
+	}
 
-    // Retrieve FlightRequests by Vendor ID
-    public List<FlightRequest> getFlightRequestsByVendorId(int vendorId) {
-        return flightRequestRepository.findByVendorId(vendorId);
-    }
     
 }

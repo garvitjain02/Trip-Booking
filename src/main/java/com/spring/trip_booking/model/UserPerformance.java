@@ -7,19 +7,19 @@ import java.time.LocalDate;
 public class UserPerformance {  // UserPerformance M:1 UserInfo
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @Column(nullable = false)
-    private Integer totalLogins;
+    @Column()
+    private int totalLogins;
 
-    @Column(nullable = false)
-    private Integer totalBookings;
+    @Column()
+    private int totalBookings;
 
-    @Column(nullable = false)
+    @Column()
     private LocalDate lastActivity;
 
-    @OneToOne
+    @OneToOne // Added cascade for owner
     private UserInfo user;
 
     // Getters and Setters
@@ -32,11 +32,11 @@ public class UserPerformance {  // UserPerformance M:1 UserInfo
         this.id = id;
     }
 
-    public Integer getTotalLogins() {
+    public int getTotalLogins() {
         return totalLogins;
     }
 
-    public void setTotalLogins(Integer totalLogins) {
+    public void setTotalLogins(int totalLogins) {
         this.totalLogins = totalLogins;
     }
 
@@ -44,7 +44,7 @@ public class UserPerformance {  // UserPerformance M:1 UserInfo
         return totalBookings;
     }
 
-    public void setTotalBookings(Integer totalBookings) {
+    public void setTotalBookings(int totalBookings) {
         this.totalBookings = totalBookings;
     }
 

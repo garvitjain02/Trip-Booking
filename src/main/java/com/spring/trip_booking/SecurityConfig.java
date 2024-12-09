@@ -53,13 +53,14 @@ public class SecurityConfig {
 				 	.requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll() //singup, make an account
 				 	.requestMatchers(HttpMethod.GET, "/api/hello").authenticated() // trial to see if it works
 				 	.requestMatchers(HttpMethod.GET, "/api/executive/hello").hasAuthority("EXECUTIVE") //only executive account tokens can access this
+				 	.requestMatchers(HttpMethod.GET, "/auth/user").authenticated()
 				 	
-				 	//userinfo controller
+				 	/*userinfo controller
 				 	.requestMatchers(HttpMethod.GET, "/user/all").hasAuthority("EXECUTIVE") 
 				 	.requestMatchers(HttpMethod.GET, "/user/delete/{id}").hasAuthority("EXECUTIVE")
 				 	.requestMatchers(HttpMethod.GET, "/user/update/{id}").authenticated()
 				 	.requestMatchers(HttpMethod.GET, "/user/role/{role}").hasAuthority("EXECUTIVE") 
-				 	.requestMatchers(HttpMethod.GET, "/user/roleperformance/{role}").hasAuthority("EXECUTIVE") 
+				 	.requestMatchers(HttpMethod.GET, "/user/roleperformance/{role}").hasAuthority("EXECUTIVE") */
 				 	
 				 /*	//busrequest controller
 				 	.requestMatchers(HttpMethod.POST, "/bus-requests/add").permitAll()

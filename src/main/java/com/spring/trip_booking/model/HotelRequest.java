@@ -7,15 +7,30 @@ import java.time.LocalDateTime;
 @Table(name = "hotel_requests")
 public class HotelRequest {  // HotelRequest M:1 UserInfo (Vendor)
 
+	
+    // Default Constructor
+   /* public HotelRequest() {
+        super();
+    }
+
+    // Parameterized Constructor
+    public HotelRequest(int id, UserInfo vendor, LocalDateTime requestDate, String hotelName, Integer numberOfRooms, String location) {
+        super();
+        this.id = id;
+        this.vendor = vendor;
+        this.requestDate = requestDate;
+        this.hotelName = hotelName;
+        this.numberOfRooms = numberOfRooms;
+        this.location = location;
+    }*/
+
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @ManyToOne
+    @ManyToOne  // Added cascade for owner
     private UserInfo vendor;
-
-    @Lob
-    private byte[] approvalDocs;
 
     @Column(nullable = false)
     private LocalDateTime requestDate;
@@ -45,14 +60,6 @@ public class HotelRequest {  // HotelRequest M:1 UserInfo (Vendor)
 
     public void setVendor(UserInfo vendor) {
         this.vendor = vendor;
-    }
-
-    public byte[] getApprovalDocs() {
-        return approvalDocs;
-    }
-
-    public void setApprovalDocs(byte[] approvalDocs) {
-        this.approvalDocs = approvalDocs;
     }
 
     public LocalDateTime getRequestDate() {
