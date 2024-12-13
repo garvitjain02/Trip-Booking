@@ -153,12 +153,13 @@ Welcome to the **Online Ticket Booking Platform** repository! This project is a 
 ## 🎥 Some Demo Videos
 
 # Vendor Performance
-![image](https://github.com/user-attachments/assets/cfe0bc05-6727-459c-b77a-955b47649039)
+![Recording 2024-12-13 123359 (1)](https://github.com/user-attachments/assets/d44f2ad2-04b9-4150-90e4-18ab88b19072)
 
 # Entity Performance
 ![Recording 2024-12-13 123325](https://github.com/user-attachments/assets/73bfc730-4518-454d-a13b-58901b808136)
 
 # Customer Performance
+![Recording 2024-12-13 123247 (1)](https://github.com/user-attachments/assets/7a8680f6-9755-46f4-8d88-d55e1d4ed796)
 
 ---
 ## 🤝 Contributing
