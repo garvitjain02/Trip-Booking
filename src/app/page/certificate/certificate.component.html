@@ -1,0 +1,27 @@
+<div class="container mt-5">
+    <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+      <div class="card-header bg-primary text-white text-center">
+        <h4 class="mb-0">Upload Certificate</h4>
+      </div>
+      <div class="card-body text-center">
+        <p class="text-muted">Please upload your certificate for vendor account approval.</p>
+        <input 
+          type="file" 
+          (change)="onFileSelect($event)" 
+          class="form-control mb-3"
+          style="max-width: 100%;"
+        >
+        <button 
+          class="btn btn-primary w-100" 
+          (click)="uploadFile()" 
+          [disabled]="!file || loading"
+        >
+          {{ loading ? 'Uploading...' : 'Upload' }}
+        </button>
+        <div *ngIf="successMessage" class="alert alert-success mt-3" role="alert">
+          {{ successMessage }}
+        </div>
+      </div>
+    </div>
+  </div>
+  

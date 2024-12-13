@@ -1,0 +1,78 @@
+<div class="card mb-4 shadow-sm border-light">
+  <div class="card-header bg-primary text-white">
+    <h5 class="mb-0">Flight Details</h5>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title text-primary">{{ flight?.flightNumber }} - {{ flight?.airline }}</h5>
+    <p class="card-text">
+      <strong>Origin:</strong> {{ flight?.origin }}<br>
+      <strong>Destination:</strong> {{ flight?.destination }}<br>
+      <strong>Departure Time:</strong> {{ flight?.departureTime }}<br>
+      <strong>Arrival Time:</strong> {{ flight?.arrivalTime }}<br>
+      <strong>Price:</strong> ${{ flight?.price }}<br>
+      <strong>Available Seats:</strong> {{ flight?.availableSeats }}<br><br>
+   <!--   <button class="btn btn-danger" (click)="deleteFlight(flight?.id)">Delete Flight</button>-->
+    </p>
+  </div>
+</div>
+
+<div class="d-flex justify-content-center align-items-center mb-4" style="height: 60px;">
+  <button
+    class="btn btn-success"
+    (click)="toggleBookings()"
+    [disabled]="flightBookings.length === 0">
+    {{ flightBookings.length === 0 ? 'No Flight Bookings Available' : (showBookings ? 'Hide Flight Bookings' : 'Show Flight Bookings') }}
+  </button>
+</div>
+
+<div *ngIf="showBookings && flightBookings.length > 0" class="mt-4">
+  <h3 class="text-center mb-3">Flight Bookings</h3>
+  <table class="table table-hover table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Passenger</th>
+        <th>Transaction Type</th>
+        <th>Transaction Status</th>
+        <th>Amount</th>
+        <th>Booking Date</th>
+        <th>End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let booking of flightBookings">
+        <td>{{ booking.id }}</td>
+        <td>{{ booking.user?.name || 'N/A' }} {{ booking.user?.lastName || '' }}</td>
+        <td>{{ booking.transactionType }}</td>
+        <td>{{ booking.transactionStatus }}</td>
+        <td>${{ booking.amount }}</td>
+        <td>{{ booking.bookingDate  }}</td>
+        <td>{{ booking.endDate  }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="mt-4">
+  <h3 class="text-center">Monthly Revenue for Flight</h3>
+  <canvas id="monthlyRevenueChart" class="border rounded shadow-sm"></canvas>
+</div>
+
+<div class="mt-4">
+  <h3 class="text-center">User Ratings for {{ flight?.name }}</h3>
+  <div *ngIf="flightRatings.length > 0; else noRatings">
+    <div *ngFor="let rating of flightRatings" class="card mb-3 shadow-sm">
+      <div class="card-body">
+        <h5 class="card-title text-primary">Rating by: {{ rating.user?.username }}</h5>
+        <p class="card-text">
+          <strong>Rating Value:</strong> {{ rating.ratingValue }}<br>
+          <strong>Feedback:</strong> {{ rating.feedbackText }}<br>
+          <strong>Rating Date:</strong> {{ rating.ratingDate}}
+        </p>
+      </div>
+    </div>
+  </div>
+  <ng-template #noRatings>
+    <p class="text-center text-muted">No ratings available for this flight.</p>
+  </ng-template>
+</div>

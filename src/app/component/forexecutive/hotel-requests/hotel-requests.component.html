@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Request Approval</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom styling for card elements */
+        .card {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out, transform 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: #f8f9fa;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            padding: 15px;
+            color: #333;
+        }
+
+        .card-body {
+            padding: 15px;
+            background-color: #ffffff;
+        }
+
+        .btn {
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+            transition: background-color 0.3s;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            transition: background-color 0.3s;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        /* Header styling */
+        h2 {
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Responsive design for better viewing on smaller screens */
+        @media (max-width: 768px) {
+            .card {
+                margin: 10px 0;
+            }
+
+            .btn {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Hotel Requests for Approval</h2>
+
+        <div *ngFor="let request of hotelRequests">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5>{{ request.hotelName }}</h5>
+                    <p>{{ request.location }} | Request Date: {{ request.requestDate}}</p>
+                    <p>{{request.vendor?.id}}</p>
+                </div>
+                <div class="card-body">
+                    <p><strong>Number of Rooms:</strong> {{ request.numberOfRooms }}</p>
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-success" (click)="approveRequest(request.id)">Approve</button>
+                        <button class="btn btn-danger" (click)="deleteRequest(request.id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

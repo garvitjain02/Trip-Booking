@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entity Performance Cards</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+        .card-title {
+            color: #333;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #004085;
+            border-color: #003366;
+        }
+        .btn-primary:hover {
+            background-color: #003366;
+            border-color: #002753;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #5a6268;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #4e555b;
+        }
+        .card-header {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #e0e0e0;
+            font-weight: 600;
+            color: #007bff;
+        }
+        .card-body {
+            padding: 1.25rem;
+        }
+        .nav-link {
+            text-decoration: none;
+        }
+        .container {
+            padding: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 text-primary">Entity Performance</h2>
+
+        <!-- Buttons for toggling between hotels and flights -->
+        <div class="d-flex justify-content-center mb-4">
+            <button class="btn btn-primary me-2" (click)="toggleHotels()">Show Hotels</button>
+            <button class="btn btn-secondary" (click)="toggleFlights()">Show Flights</button>
+        </div>
+
+        <!-- Search Bar -->
+        <div *ngIf="showHotels" class="mb-4">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search hotels by name..."
+                [(ngModel)]="searchQuery"
+                (input)="filterHotels()"
+            />
+        </div>
+
+        <!-- Hotel Cards -->
+        <div class="row" *ngIf="showHotels">
+            <div class="col-md-4 mb-4" *ngFor="let hotel of filteredHotels">
+                <a class="nav-link" (click)="navigateToHotelDetailedPage(hotel.id)">
+                    <div class="card shadow-sm border-success">
+                        <div class="card-header">
+                            Hotel Details
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title"> {{ hotel.name }}</h5>
+                            <p class="card-text"><strong>Hotel id:</strong>  {{ hotel.id }}</p>
+                            <p class="card-text"><strong>Stars:</strong> {{ hotel.stars }}</p>
+                            <p class="card-text"><strong>Address:</strong> {{ hotel.address }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Search Bar for Flights -->
+        <div *ngIf="showFlights" class="mb-4">
+            <input
+                type="text"
+                class="form-control"
+                placeholder="Search flights by flight number or airline..."
+                [(ngModel)]="searchQuery"
+                (input)="filterFlights()"
+            />
+        </div>
+
+        <!-- Flight Cards -->
+        <div class="row" *ngIf="showFlights">
+            <div class="col-md-4 mb-4" *ngFor="let flight of filteredFlights">
+                <a class="nav-link" (click)="navigateToFlightDetailedPage(flight.id)">
+                    <div class="card shadow-sm border-primary">
+                        <div class="card-header">
+                            Flight Details
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">{{ flight.flightNumber }}</h5>
+                            <p class="card-text"><strong>Flight id:</strong>  {{ flight.id }}</p>
+                            <p class="card-text"><strong>Airline:</strong> {{ flight.airline }}</p>
+                            <p class="card-text"><strong>Route:</strong> {{ flight.origin }} → {{ flight.destination }}</p>
+                            <p class="card-text"><strong>Departure:</strong> {{ flight.departureTime }}</p>
+                            <p class="card-text"><strong>Price:</strong> ₹{{ flight.price }}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

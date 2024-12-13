@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Performance</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease-in-out;
+        }
+        .card-title {
+            color: #0056b3; /* Dark blue for card titles */
+        }
+        .card-text {
+            color: #6c757d; /* Subtle gray for card text */
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4 text-primary">Vendor Performance</h2>
+
+        <!-- Search Bar -->
+        <input type="text" id="search" class="form-control mb-4" (input)="onSearch($event)" placeholder="Search by Vendor Name">
+
+        <!-- Vendor Performance Cards -->
+        <div class="row" id="cardsContainer">
+            <div class="col-md-4 mb-4" *ngFor="let vendor of filteredVendors">
+                <a class="nav-link" (click)="navigateToDetailedPage(vendor.username, vendor.role)">
+                    <div class="card shadow-sm border-primary border-3">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">{{ vendor.name }} {{vendor.lastName}}</h5>
+                            <p class="card-text"><strong>Id:</strong> {{ vendor.id }}</p>
+                            <p class="card-text"><strong>Username:</strong> {{ vendor.username }}</p>
+                            <p class="card-text"><strong>Email:</strong> {{ vendor.email }}</p>
+                            <p class="card-text"><strong>Phone:</strong> {{ vendor.phone }}</p>
+                            <p class="card-text"><strong>Role:</strong> {{ vendor.role }}</p>                        
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

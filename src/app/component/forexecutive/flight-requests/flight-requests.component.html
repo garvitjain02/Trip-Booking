@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Requests for Approval</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Flight Requests for Approval</h2>
+
+        <!-- Flight Requests Cards -->
+        <div class="row">
+            <!-- Example card for a flight request -->
+            <div class="col-md-4" *ngFor="let request of flightRequests">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0">Flight Number: {{ request.flightNumber }}</h5>
+                        <small class="text-light">Airline: {{ request.airline }}</small>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Vendor:</strong> {{ request.vendor.username }}</p>
+                        <p><strong>Request Date:</strong> {{ request.requestDate }}</p>
+                        <p><strong>Origin:</strong> {{ request.origin }} <span class="mx-2">→</span> <strong>Destination:</strong> {{ request.destination }}</p>
+                        <p><strong>Departure:</strong> {{ request.departureTime }} <span class="mx-2">|</span> <strong>Arrival:</strong> {{ request.arrivalTime }}</p>
+                        <p><strong>Duration:</strong> {{ request.duration }} mins</p>
+                        <p><strong>Available Seats:</strong> {{ request.availableSeats }}</p>
+                        <p><strong>Price:</strong> ${{ request.price }}</p>
+                    </div>
+                    <div class="card-footer text-end">
+                        <button class="btn btn-success me-2" (click)="approveRequest(request.id)">Approve</button>
+                        <button class="btn btn-danger" (click)="deleteRequest(request.id)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

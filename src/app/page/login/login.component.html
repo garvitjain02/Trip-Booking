@@ -1,0 +1,36 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow-sm border-0">
+          <div class="card-header bg-primary text-white text-center py-3">
+            <h5 class="mb-0">Login</h5>
+          </div>
+          <div class="card-body p-4">
+            <!-- Success and error messages -->
+            <div class="alert alert-primary mb-4" *ngIf="successMsg">
+              {{ successMsg }}
+            </div>
+            <div class="alert alert-danger mb-4" *ngIf="errorMsg">
+              {{ errorMsg }}
+            </div>
+            <div class="alert alert-danger mb-4" *ngIf="msg">
+              {{ msg }}
+            </div>
+            <!-- Form Fields -->
+            <div class="mb-4">
+              <label class="form-label">Enter Username:</label>
+              <input type="text" class="form-control" [(ngModel)]="username" placeholder="Your username" />
+            </div>
+            <div class="mb-4">
+              <label class="form-label">Enter Password:</label>
+              <input type="password" class="form-control" [(ngModel)]="password" placeholder="Your password" />
+            </div>
+          </div>
+          <div class="card-footer text-center">
+            <button class="btn btn-primary px-4" (click)="onLogin()">Login</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

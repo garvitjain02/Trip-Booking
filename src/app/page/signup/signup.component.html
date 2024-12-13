@@ -1,0 +1,107 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="card shadow-lg border-0">
+          <div class="card-header bg-primary text-white text-center py-3">
+            <h5 class="mb-0">Sign Up</h5><br>
+            <div class="d-flex justify-content-center">
+              <button class="btn btn-outline-light me-2" (click)="setUserType('CUSTOMER')">
+                Customer Sign Up
+              </button>
+              <button class="btn btn-outline-light" (click)="setUserType('VENDOR')">
+                Vendor Sign Up
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-4">
+            <h3 class="text-center mb-4">
+              {{ userType === 'CUSTOMER' ? 'Customer Sign Up' : 'Vendor Sign Up' }}
+            </h3>
+            <div class="alert alert-primary mb-4" *ngIf="successMsg">
+              {{ successMsg }}
+            </div>
+            <div class="alert alert-danger mb-4" *ngIf="errorMsg">
+              {{ errorMsg }}
+            </div>
+  
+            <!-- Form -->
+            <form [formGroup]="signupForm" (ngSubmit)="onSignUp()">
+              <!-- Shared form fields -->
+              <div class="mb-3">
+                <label class="form-label">Enter First Name:</label>
+                <input type="text" class="form-control" formControlName="name" />
+                <div *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched" class="text-danger small">
+                  First name is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Enter Last Name:</label>
+                <input type="text" class="form-control" formControlName="lastName" />
+                <div *ngIf="signupForm.get('lastName')?.invalid && signupForm.get('lastName')?.touched" class="text-danger small">
+                  Last name is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Enter DOB:</label>
+                <input type="date" class="form-control" formControlName="dob" />
+                <div *ngIf="signupForm.get('dob')?.invalid && signupForm.get('dob')?.touched" class="text-danger small">
+                  Date of birth is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Enter Phone:</label>
+                <input type="text" class="form-control" formControlName="phone" maxlength="10" pattern="^[0-9]{10}$" />
+                <div *ngIf="signupForm.get('phone')?.invalid && signupForm.get('phone')?.touched" class="text-danger small">
+                  Valid phone number is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Enter Email:</label>
+                <input type="email" class="form-control" formControlName="email" />
+                <div *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched" class="text-danger small">
+                  A valid email is required.
+                </div>
+              </div>
+  
+              <!-- Conditional role fields -->
+              <div class="mb-3" *ngIf="userType === 'VENDOR'">
+                <label class="form-label">Select Vendor Role:</label><br>
+                <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" formControlName="role" value="FLIGHT_VENDOR" />
+                  <label class="form-check-label">FLIGHT VENDOR</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input type="radio" class="form-check-input" formControlName="role" value="HOTEL_VENDOR" />
+                  <label class="form-check-label">HOTEL VENDOR</label>
+                </div>
+                <div *ngIf="signupForm.get('role')?.invalid && signupForm.get('role')?.touched" class="text-danger small">
+                  Vendor role selection is required.
+                </div>
+              </div>
+  
+              <!-- Shared form fields -->
+              <div class="mb-3">
+                <label class="form-label">Enter Username:</label>
+                <input type="text" class="form-control" formControlName="username" />
+                <div *ngIf="signupForm.get('username')?.invalid && signupForm.get('username')?.touched" class="text-danger small">
+                  Username is required.
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Enter Password:</label>
+                <input type="password" class="form-control" formControlName="password" />
+                <div *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched" class="text-danger small">
+                  Password is required.
+                </div>
+              </div>
+  
+              <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid">Sign Up</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

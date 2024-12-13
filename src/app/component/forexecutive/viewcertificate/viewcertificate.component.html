@@ -1,0 +1,22 @@
+<div class="container mt-5">
+    <div class="text-center mb-4">
+      <h1 class="display-5 text-primary">Vendor's Certificate</h1>
+      <p class="text-muted">Review the certificate details below.</p>
+    </div>
+  
+    <div class="card shadow-lg mx-auto" style="max-width: 600px;">
+      <div class="card-header bg-primary text-white text-center">
+        <h4 class="mb-0">Certificate Preview</h4>
+      </div>
+      <div class="card-body text-center">
+        <img [src]="path" alt="Vendor Certificate" class="img-fluid rounded" *ngIf="path; else noImage" />
+        <ng-template #noImage>
+          <p class="text-muted mt-3">No certificate available to display.</p>
+        </ng-template>
+      </div>
+      <div class="card-footer text-center">
+        <button class="btn btn-secondary" (click)="goBack()">Back</button>
+      </div>
+    </div>
+  </div>
+  

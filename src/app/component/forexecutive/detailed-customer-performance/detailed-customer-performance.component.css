@@ -1,0 +1,8 @@
+.aBtn{
+    padding:5px 10px;
+    text-decoration:none;
+    color:rgb(111,0,100);
+    background-color:rgb(0,0,5);border:1px solid transparent;
+  }
+  .aBtn:hover {color:white;}
+  .aBtn:active{border:1px solid orange;}

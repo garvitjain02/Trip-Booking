@@ -1,0 +1,31 @@
+<div class="px-3 py-2 bg-dark text-white shadow-sm border-bottom">
+  <div class="container-fluid d-flex flex-wrap justify-content-between align-items-center">
+    <!-- Branding -->
+    <div class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-auto">
+      <h1 class="mb-0 fs-4 fw-bold text-uppercase text-light">
+        <i class="fas fa-plane-departure me-2"></i>Online Ticket Booking
+      </h1>
+    </div>
+
+    <!-- Buttons -->
+    <div class="text-end">
+      <!-- Login Button -->
+      <button
+        type="button"
+        class="btn btn-outline-light btn-sm me-2 px-4 py-2 rounded-pill"
+        [routerLink]="['/login']"
+      >
+        Login
+      </button>
+
+      <!-- Sign-up Button -->
+      <button
+        type="button"
+        (click)="navigateToSignUp()"
+        class="btn btn-light btn-sm px-4 py-2 rounded-pill text-dark fw-bold shadow-sm"
+      >
+        Sign-up
+      </button>
+    </div>
+  </div>
+</div>
