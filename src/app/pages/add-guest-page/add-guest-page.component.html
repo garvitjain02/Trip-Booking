@@ -1,0 +1,41 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+<div class="row ms-5 mt-4 me-5">
+    <div class="col-sm-6">
+        
+    <h3>Add Guest Details</h3>
+    </div>
+    <div class="col-sm-6">
+    <button class="btn btn-primary float-end" type="submit" (click)="onSubmit()">Confirm Booking</button>
+    </div>
+</div>
+<div class="row ms-5 me-5">
+    <div class="alert alert-danger w-25 d-flex justify-content-center" *ngIf="msg">{{msg}}</div>
+    <div class="alert alert-success d-flex justify-content-center" *ngIf="successMsg">{{msg}}</div>
+</div>
+<div class="row  d-flex justify-content-center ps-5 pe-5 mb-5">
+    
+        <div class="col-sm-3 mt-4" *ngFor="let t of guests; index as i">
+
+            <div class="card">
+                <div class="card-header">
+                    <h6>Guest - {{i+1}}</h6>
+                </div>
+                <div class="card-body">
+                            
+                    <label>Name : </label>
+                            <input type="text" class="form-control" [(ngModel)]="guests[i].name" placeholder="Enter Name">
+                            <label>Age : </label>
+                            <input type="number" class="form-control mt-1" [(ngModel)]="guests[i].age" placeholder="Enter Age">
+                            <label>Valid ID : </label>
+                            <input type="file" class="form-control mt-1" placeholder="Enter Valid ID" (change)="onFileSelect($event, i)">
+                        </div>
+                </div>
+                
+                
+                
+            </div>        
+    </div>
+</div>
+
+<app-footer></app-footer>

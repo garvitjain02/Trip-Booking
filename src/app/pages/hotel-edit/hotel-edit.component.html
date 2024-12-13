@@ -1,0 +1,41 @@
+<app-vendor-navbar></app-vendor-navbar>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
+            <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="card">
+                <form [formGroup]="hotelEditForm" (ngSubmit)="onSubmit()">
+                <div class="card-header">Edit Hotel Details</div>
+                <div class="card-body">
+                    <label class="form-label">Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+        
+                    <label class="form-label">Description</label>
+                    <input type="text" class="form-control" formControlName="description">
+        
+                    <label class="form-label">Number of Rooms</label>
+                    <input type="number" class="form-control" min="1" formControlName="rooms">
+        
+                    <label class="form-label">Stars</label>
+                    <input type="number" class="form-control" min="1" max="5" formControlName="stars">
+        
+                    <label class="form-label">Address</label>
+                    <input type="text" class="form-control" formControlName="address">
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

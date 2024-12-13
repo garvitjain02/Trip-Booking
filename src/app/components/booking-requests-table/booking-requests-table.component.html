@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <div class="row d-flex justify-content-center mt-3">
+        <button class="btn btn-outline-primary w-25 me-2" (click)="pending()">Pending</button>
+        <button class="btn btn-outline-success w-25 me-2" (click)="approved()">Approved</button>
+        <button class="btn btn-outline-danger w-25" (click)="rejected()">Rejected</button>
+    </div>
+<table class="table mt-4">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Hotel</th>
+        <th scope="col">Check-In Date</th>
+        <th scope="col">Check-Out Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col" *ngIf="pendingRequests">Approval</th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let b of tempData; index as i">
+      <tr>
+        <th scope="row">{{i+1}}</th>
+        <td>{{b.user.name}}</td>
+        <td>{{b.hotel.name}}</td>
+        <td>{{b.startDate}}</td>
+        <td>{{b.endDate}}</td>
+        <td>{{b.amount}}</td>
+        <td *ngIf="pendingRequests"><button class="btn btn-primary me-2" (click)="changeStatus('APPROVED', i)">Approve</button><button class="btn btn-danger" (click)="changeStatus('NOT_APPROVED', i)">Reject</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/hotel']">Hotels</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarText">
+        <div class="d-flex">
+            <input class="form-control me-2" type="text" placeholder="Location" style="width: 10rem" [(ngModel)]="location">
+            <input class="form-control me-2" type="date" [(ngModel)]="startDate">
+            <input class="form-control me-2" type="date" [(ngModel)]="endDate">
+            <input class="form-control me-2" type="number" placeholder="Guests" style="width: 7rem;" min="1" [(ngModel)]="guests">
+            <button class="btn btn-sm btn-outline-success" type="submit" (click)="onSubmit()">Search</button>
+        </div>
+            <button class="btn btn-outline-primary me-2" type="button" style="float: right; margin-left:30%" [routerLink]="['/login']" *ngIf="token === null">Login</button>
+            <button class="btn btn-outline-success me-2" type="button" style="float: right; margin-left:30%" (click)="logout()" *ngIf="token !== null">Logout</button>
+            &nbsp;
+          <img src="logo.png" alt="Logo" style="width: 8%"/>
+      </div>
+    </div>
+  </nav>

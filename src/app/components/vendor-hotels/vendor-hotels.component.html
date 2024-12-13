@@ -1,0 +1,27 @@
+<div class="container-fluid" *ngFor="let h of hotels">
+    <div class="row mt-3 ms-1 me-4 border border-black">
+        <div class="col-sm-3 p-2">
+            <img src="{{h.imageUrl}}" alt="img4" width="100%" height="100%">
+        </div>
+        <div class="col-sm-7 mt-2">
+            <h4 class="mb-0">{{h.hotel.name}}</h4>
+            <p>Location from City Center : {{h.hotel.location.cityCenter}}</p>
+
+            <h6>Types of Rooms: {{h.rooms}}</h6>
+            <p *ngIf="h.facilities.length > 0">Facilities : {{h.facilities}}</p>
+
+            <h6>Prices Starting from : {{h.startPrice}}</h6>
+            
+        </div>
+        <div class="col-sm-2">
+            Rating : {{h.rating}}
+            <span class="text-decoration-none">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-star-fill" viewBox="0 0 16 16">
+  <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+</svg>
+            </span>
+            <br />
+            <button class="btn btn-primary mt-5" (click)="editHotel(h.hotel.id)">Edit Hotel</button>
+        </div>
+    </div>
+</div>
