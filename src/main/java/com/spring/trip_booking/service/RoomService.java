@@ -33,6 +33,10 @@ public class RoomService {
 	public List<Room> getRoomsByHotel(Hotel hotel) {
 		return roomRepository.findAllByHotel(hotel);
 	}
+
+	public List<Room> addBatchRooms(List<Room> rooms) {
+		return roomRepository.saveAll(rooms);
+	}
 	
 	
 	

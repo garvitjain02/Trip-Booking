@@ -18,6 +18,19 @@ public class Guest {
 	@Column(nullable = false)
 	private int age;
 
+	@Column
+	private String idProof;
+	
+	
+	
+	public String getIdProof() {
+		return idProof;
+	}
+
+	public void setIdProof(String idProof) {
+		this.idProof = idProof;
+	}
+
 	public int getId() {
 		return id;
 	}

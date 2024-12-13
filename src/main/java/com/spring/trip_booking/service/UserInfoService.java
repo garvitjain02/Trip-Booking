@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.spring.trip_booking.enums.Role;
 import com.spring.trip_booking.exception.InvalidUsernameException;
 import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.model.UserInfo;
@@ -50,6 +51,8 @@ public class UserInfoService {
 		//encrypt the password 
 		String encryptedPass = passEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPass);
+		
+//		user.setRole(Role.CUSTOMER);
 		
 		return userInfoRepository.save(user);
 	}

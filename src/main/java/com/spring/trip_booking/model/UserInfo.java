@@ -65,7 +65,7 @@ public class UserInfo implements UserDetails {
         this.id = id;
     }
 
-    public void setUsermame(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

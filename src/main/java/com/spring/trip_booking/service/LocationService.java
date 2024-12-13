@@ -31,4 +31,12 @@ public class LocationService {
 	public List<Location> getLocationByName(String keyword) {
 		return locationRepository.getLocationByName(keyword);
 	}
+
+	public List<Location> getAllLocations() {
+		 return locationRepository.findAll();
+	}
+
+	public List<Location> addBatchLocations(List<Location> locations) {
+		return locationRepository.saveAll(locations);
+	}
 }

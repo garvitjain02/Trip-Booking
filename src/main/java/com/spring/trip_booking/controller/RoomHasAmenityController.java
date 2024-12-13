@@ -62,4 +62,18 @@ public class RoomHasAmenityController {
 		list = roomHasAmenityService.addRoomHasAmenities(list);
 		return ResponseEntity.ok(list);
 	}
+	
+	@PostMapping("/room/amenities/batch/add")
+	public List<RoomHasAmenity> addRoomAmenitiesBatch (@RequestBody List<RoomHasAmenity> list) {
+		list.stream().forEach(e -> {
+			try {
+				e.setAmenity(amenityService.validate(e.getAmenity().getId()));
+				e.setRoom(roomService.validate(e.getRoom().getId()));
+			} catch (ResourceNotFoundException e1) {
+				
+			}
+		});
+		
+		return roomHasAmenityService.addRoomAmenitiesBatch(list);
+	}
 }

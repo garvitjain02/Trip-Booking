@@ -26,6 +26,10 @@ public class AmenityService {
 			throw new ResourceNotFoundException("There is No Such Amenity");
 		return optional.get();
 	}
-	
+
+	public List<Amenity> getAmenitiesByHotel(int hid) {
+		return amenityRepository.getAmenitiesByHotel(hid);
+	}
+
 	
 }

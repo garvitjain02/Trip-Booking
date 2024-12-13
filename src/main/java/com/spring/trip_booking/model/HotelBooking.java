@@ -1,5 +1,5 @@
 package com.spring.trip_booking.model;
-
+ 
 import java.time.LocalDate;
 
 import com.spring.trip_booking.enums.ApprovalStatus;

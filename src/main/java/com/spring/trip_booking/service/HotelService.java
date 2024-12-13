@@ -9,11 +9,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.spring.trip_booking.dto.HotelDetailDto;
 import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.model.Amenity;
 import com.spring.trip_booking.model.Hotel;
 import com.spring.trip_booking.model.Location;
-import com.spring.trip_booking.model.Policy;
+import com.spring.trip_booking.model.UserInfo;
 import com.spring.trip_booking.repository.HotelRepository;
 
 @Service
@@ -42,8 +43,8 @@ public class HotelService {
 		return hotelRepository.findByLocation(location);
 	}
 
-	public List<Hotel> getHotelsWithDates(LocalDate in, LocalDate out, int guests) {
-		return hotelRepository.getHotelsWithDates(in, out);
+	public List<Hotel> getHotelsWithDates(LocalDate in, LocalDate out, int guests, String loc) {
+		return hotelRepository.getHotelsWithDates(in, out, loc);
 	}
 
 	public List<Amenity> hotelHasAmenities(int hid) {
@@ -52,6 +53,19 @@ public class HotelService {
 
 	public Page<Hotel> getAllHotelsInPages(Pageable pageable) {
 		return hotelRepository.findAll(pageable);
+	}
+
+	public List<Hotel> getHotelsByVendor(int i) {
+		return hotelRepository.getHotelsByVendor(i);
+		
+	}
+
+	public Hotel updateHotel(Hotel hotel) {
+		return hotelRepository.save(hotel);
+	}
+
+	public List<Hotel> addBatchHotels(List<Hotel> hotels) {		
+		return hotelRepository.saveAll(hotels);
 	}
 
 }
