@@ -1,4 +1,6 @@
 package com.spring.trip_booking.service;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.spring.trip_booking.model.Airport;
 import com.spring.trip_booking.repository.AirportRepository;
@@ -11,13 +13,28 @@ import java.util.Optional;
 @Service
 public class AirportService {
 
+      private static final Logger logger = LoggerFactory.getLogger(AirportService.class);
     @Autowired
     private AirportRepository airportRepository;
 
+    
     // Save a new airport
     public Airport saveAirport(Airport airport) {
-        return airportRepository.save(airport);
+        logger.info("Attempting to save a new airport: {}", airport);
+        try {
+            Airport savedAirport = airportRepository.save(airport);
+            logger.info("Successfully saved airport: {}", savedAirport);
+            return savedAirport;
+        } catch (Exception e) {
+            logger.error("Failed to save airport: {}", airport, e);
+            throw e; 
+        }
     }
+    // Save a new airport
+    
+    /*public Airport saveAirport(Airport airport) {
+        return airportRepository.save(airport);
+    }*/
 
     // Get all airports
     public List<Airport> getAllAirports() {

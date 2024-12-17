@@ -1,12 +1,20 @@
 package com.spring.trip_booking.service;
 
 import com.spring.trip_booking.model.FlightBooking;
+import com.spring.trip_booking.model.Passengers;
 import com.spring.trip_booking.repository.FlightBookingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
+import java.util.function.Function;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
+
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class FlightBookingService {
@@ -14,10 +22,36 @@ public class FlightBookingService {
     @Autowired
     private FlightBookingRepository flightBookingRepository;
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     // Save a new booking
-    public FlightBooking saveFlightBooking(FlightBooking booking) {
-        return flightBookingRepository.save(booking);
+    @Transactional
+    public FlightBooking saveFlightBooking(FlightBooking flightBooking) {
+        
+        
+    
+    // Merge passengers to attach them to the persistence context
+        List<Passengers> mergedPassengers = flightBooking.getPassengers().stream()
+            .map(passenger -> passenger.getPassengerId() != null 
+                  ? entityManager.merge(passenger) 
+                  : passenger)
+            .collect(Collectors.toList());
+        flightBooking.setPassengers(mergedPassengers);
+
+        // Ensure passengers reference the current flight booking
+    List<Passengers> passengers = flightBooking.getPassengers();
+    if (passengers != null) {
+        passengers.forEach(passenger -> passenger.setBooking(flightBooking));
     }
+    
+        
+        // Save the booking
+        return flightBookingRepository.save(flightBooking);
+    }
+    
+
+
 
     // Get all bookings
     public List<FlightBooking> getAllFlightBookings() {

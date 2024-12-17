@@ -3,6 +3,8 @@ package com.spring.trip_booking.model;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Passengers {
 
@@ -17,6 +19,7 @@ public class Passengers {
 
     @ManyToOne
     @JoinColumn(name = "booking_id")
+    @JsonIgnore
     private FlightBooking booking;
 
     // Constructor

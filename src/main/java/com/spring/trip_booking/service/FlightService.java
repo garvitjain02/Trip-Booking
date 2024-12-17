@@ -53,4 +53,8 @@ public class FlightService {
         }
         return false;
     }
+
+    public List<Flight> getFlightsByOriginAndDestination(String origin, String destination) {
+        return flightRepository.findFlightsByOriginAndDestination(origin, destination);
+    }
 }

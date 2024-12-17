@@ -15,8 +15,9 @@ public class FlightBooking {
     @JoinColumn(name = "flight_id", nullable = false)
     private Flight flight;
 
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
-    private List<Passengers> passengers;
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+     private List<Passengers> passengers;
+
 
     @Column(nullable = false)
     private LocalDateTime bookingDate;

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/api/flights")
 public class FlightController {
@@ -55,5 +56,13 @@ public class FlightController {
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Flight>> getFlightsByOriginAndDestination(
+            @RequestParam("origin") String origin,
+            @RequestParam("destination") String destination) {
+        List<Flight> flights = flightService.getFlightsByOriginAndDestination(origin, destination);
+        return ResponseEntity.ok(flights);
     }
 }

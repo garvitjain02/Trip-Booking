@@ -52,9 +52,10 @@ public class SecurityConfig {
 					.requestMatchers(HttpMethod.GET, "/api/token").permitAll()
 				 	.requestMatchers(HttpMethod.POST, "/auth/sign-up").permitAll() 
 				 	.requestMatchers(HttpMethod.GET, "/api/hello").authenticated()
-				 	.requestMatchers(HttpMethod.GET, "/api/executive/hello").hasAuthority("EXECUTIVE") 
+				 	//.requestMatchers(HttpMethod.GET, "/api/executive/hello").hasAuthority("EXECUTIVE")
+					 .requestMatchers(HttpMethod.GET, "/auth/user").authenticated() 
                     //for airport controller 
-                    .requestMatchers(HttpMethod.POST, "/api/airports/add").hasAuthority("FLIGHT_VENDOR")
+                    //.requestMatchers(HttpMethod.POST, "/api/airports/add").hasAuthority("FLIGHT_VENDOR")
 				.anyRequest().permitAll()
 			)
 			.sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

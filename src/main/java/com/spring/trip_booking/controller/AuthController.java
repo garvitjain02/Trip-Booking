@@ -21,7 +21,10 @@ import com.spring.trip_booking.exception.InvalidUsernameException;
 import com.spring.trip_booking.model.UserInfo;
 import com.spring.trip_booking.service.UserInfoService;
 import com.spring.trip_booking.service.UserSecurityService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+
+@CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 public class AuthController {
 
@@ -79,5 +82,13 @@ public class AuthController {
 			dto.setMessage(e.getMessage());
 			 return ResponseEntity.badRequest().body(dto);
 		}
+	}
+
+
+	@GetMapping("/auth/user")
+	public UserInfo getUserDetails(Principal principal) {
+		String loggedInUsername = principal.getName();
+		UserInfo user  = (UserInfo)userSecurityService.loadUserByUsername(loggedInUsername);
+		return user; 
 	}
 }
