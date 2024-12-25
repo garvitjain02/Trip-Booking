@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.spring.trip_booking.model.Hotel;
 import com.spring.trip_booking.model.HotelBooking;
+import com.spring.trip_booking.model.UserInfo;
 
 public interface HotelBookingRepository extends JpaRepository<HotelBooking, Integer> {
 
@@ -18,5 +19,7 @@ public interface HotelBookingRepository extends JpaRepository<HotelBooking, Inte
 			+ "join h.owner u "
 			+ "where u.id = ?1")
 	List<HotelBooking> getHotelBookingByVendor(int i);
+
+	List<HotelBooking> findAllByUser(UserInfo user);
 
 }

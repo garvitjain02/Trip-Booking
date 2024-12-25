@@ -1,6 +1,7 @@
 package com.spring.trip_booking.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.spring.trip_booking.dto.HotelBookingByUserResponseDto;
 import com.spring.trip_booking.enums.ApprovalStatus;
 import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.model.Hotel;
 import com.spring.trip_booking.model.HotelBooking;
+import com.spring.trip_booking.model.HotelImages;
 import com.spring.trip_booking.model.UserInfo;
 import com.spring.trip_booking.service.HotelBookingService;
+import com.spring.trip_booking.service.HotelImagesService;
 import com.spring.trip_booking.service.HotelService;
 import com.spring.trip_booking.service.UserInfoService;
 import com.spring.trip_booking.service.UserSecurityService;
@@ -35,6 +39,12 @@ public class HotelBookingController {
 	
 	@Autowired
 	private UserSecurityService userSecurityService;
+	
+	@Autowired
+	private UserInfoService userInfoService;
+	
+	@Autowired
+	private HotelImagesService hotelImagesService;
 	
 	@GetMapping("/hotel/approval/requests/{hid}")
 	public List<HotelBooking> getHotelApprovalRequests (@PathVariable int hid) throws ResourceNotFoundException {
@@ -66,5 +76,24 @@ public class HotelBookingController {
 		HotelBooking hotelBooking = hotelBookingService.validate(bid);
 		hotelBooking.setApprovalStatus(ApprovalStatus.valueOf(status));
 		return hotelBookingService.updateApprovalStatus(hotelBooking);
+	}
+	
+	@GetMapping("/api/bookings/user")
+	public List<HotelBookingByUserResponseDto> getHotelBookingsByUser (@RequestParam String user) throws ResourceNotFoundException {
+		UserInfo u = (UserInfo) userSecurityService.loadUserByUsername(user);
+		List<HotelBookingByUserResponseDto> list = new ArrayList<>();
+		List<HotelBooking> bookings = hotelBookingService.getHotelBookingsByUser(u);
+		bookings.forEach(b -> {
+			HotelBookingByUserResponseDto dto = new HotelBookingByUserResponseDto();
+			dto.setHotelBooking(b);
+			
+			List<HotelImages> images = hotelImagesService.getAllImagesByHotel(b.getHotel());
+			if (images.size() > 0)
+				dto.setHotelImages(images.get(0));
+			
+			list.add(dto);
+		});
+		
+		return list;
 	}
 }

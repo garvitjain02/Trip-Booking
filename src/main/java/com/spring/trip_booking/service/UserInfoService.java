@@ -56,4 +56,33 @@ public class UserInfoService {
 		
 		return userInfoRepository.save(user);
 	}
+
+	public UserInfo updateUser(UserInfo user) throws InvalidUsernameException, ResourceNotFoundException {
+		UserInfo userInfo = validate(user.getId());
+		
+		Optional<UserInfo> optional = userInfoRepository.findByUsername(user.getUsername());
+		if(optional.isPresent()) {
+			UserInfo temp = optional.get();
+			if (temp.getId() != user.getId())
+				throw new InvalidUsernameException("Username already in use");
+		}
+		
+		if (!user.getPassword().isBlank()) {
+			String encryptedPass = passEncoder.encode(user.getPassword());
+			user.setPassword(encryptedPass);
+		} else {
+			user.setPassword(userInfo.getPassword());
+		}
+//		user.setRole(Role.CUSTOMER);
+		
+		userInfo.setFirstName(user.getFirstName());
+		userInfo.setLastName(user.getLastName());
+		userInfo.setEmail(user.getEmail());
+		userInfo.setPhone(user.getPhone());
+		userInfo.setDob(user.getDob());
+		userInfo.setUsername(user.getUsername());
+		userInfo.setPassword(user.getPassword());
+		
+		return userInfoRepository.save(userInfo); 
+	}
 }

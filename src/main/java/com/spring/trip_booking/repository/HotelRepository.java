@@ -21,7 +21,7 @@ public interface HotelRepository extends JpaRepository<Hotel, Integer> {
 			+ "from HotelBooking hb "
 			+ "join hb.hotel h "
 			+ "join h.location l "
-			+ "where hb.endDate >= :in or hb.startDate <= :out and l.city = :loc")
+			+ "where hb.endDate >= :in and hb.startDate <= :out and l.city = :loc")
 	List<Hotel> getHotelsWithDates(@Param("in") LocalDate in, @Param("out") LocalDate out, @Param("loc") String location);
 
 	@Query("select a "

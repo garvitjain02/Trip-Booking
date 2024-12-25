@@ -61,4 +61,8 @@ public class HotelBookingService {
 	public HotelBooking updateApprovalStatus(HotelBooking hotelBooking) {
 		return hotelBookingRepository.save(hotelBooking);
 	}
+
+	public List<HotelBooking> getHotelBookingsByUser(UserInfo user) {
+		return hotelBookingRepository.findAllByUser(user);
+	}
 }

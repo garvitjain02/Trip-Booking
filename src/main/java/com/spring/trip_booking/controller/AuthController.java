@@ -11,6 +11,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import com.spring.trip_booking.JwtUtil;
 import com.spring.trip_booking.dto.JwtDto;
 import com.spring.trip_booking.dto.ResponseMessageDto;
 import com.spring.trip_booking.exception.InvalidUsernameException;
+import com.spring.trip_booking.exception.ResourceNotFoundException;
 import com.spring.trip_booking.model.UserInfo;
 import com.spring.trip_booking.service.UserInfoService;
 import com.spring.trip_booking.service.UserSecurityService;
@@ -85,5 +87,10 @@ public class AuthController {
 	public UserInfo getUserDetails (Principal principal) {
 		String username = principal.getName();
 		return (UserInfo) userSecurityService.loadUserByUsername(username);
+	}
+	
+	@PutMapping("/api/user/update")
+	public UserInfo updateUser (@RequestBody UserInfo user) throws InvalidUsernameException, ResourceNotFoundException { 
+		return userInfoService.updateUser(user);
 	}
 }
