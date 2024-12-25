@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { SearchService } from '../../service/search.service';
 
 @Component({
   selector: 'app-landing-page',
@@ -17,7 +18,7 @@ export class LandingPageComponent {
   location: string;
   msg: string | undefined;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private searchService: SearchService) {
     let d = new Date();
     this.checkInDate = d.toISOString().split('T')[0];
     
@@ -26,6 +27,13 @@ export class LandingPageComponent {
 
     this.guests = 2;
     this.location = "Delhi";
+
+    searchService.updateSearch({
+      checkInDate : this.checkInDate,
+      checkOutDate : this.checkOutDate,
+      guests : this.guests,
+      location : this.location
+    });
   }
 
 
@@ -43,6 +51,12 @@ export class LandingPageComponent {
     else if (this.guests < 1 || this.guests > 10)
       this.msg = "Choose Guests within the range provided";
     else {
+      this.searchService.updateSearch({
+        checkInDate : this.checkInDate,
+        checkOutDate : this.checkOutDate,
+        guests : this.guests,
+        location : this.location
+      });
       this.router.navigateByUrl("/hotel/search?location="+this.location+"&checkInDate="+this.checkInDate+"&checkOutDate="+this.checkOutDate+"&guests="+this.guests);
 
     }

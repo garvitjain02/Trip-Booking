@@ -1,0 +1,47 @@
+<app-navbar></app-navbar>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="alert alert-success" *ngIf="successMsg">{{successMsg}}</div>
+            <div class="alert alert-danger" *ngIf="errorMsg">{{errorMsg}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="card">
+                <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <div class="card-header">Edit Details</div>
+                <div class="card-body">
+                    <label class="form-label">First Name</label>
+                    <input type="text" class="form-control" formControlName="firstName">
+        
+                    <label class="form-label">Last Name</label>
+                    <input type="text" class="form-control" formControlName="lastName">
+        
+                    <label class="form-label">DOB</label>
+                    <input type="date" class="form-control" min="1" formControlName="dob">
+        
+                    <label class="form-label">Phone</label>
+                    <input type="text" class="form-control" min="1" max="5" formControlName="phone">
+        
+                    <label class="form-label">Email</label>
+                    <input type="text" class="form-control" formControlName="email">
+
+                    <label class="form-label">Username</label>
+                    <input type="text" class="form-control" formControlName="username">
+
+                    <label class="form-label">Password</label>
+                    <input type="text" class="form-control" formControlName="password">
+                </div>
+
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-success">Save</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -4,7 +4,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from "../../components/footer/footer.component";
 import { GuestService } from '../../service/guest.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-guest-page',
@@ -19,7 +19,7 @@ export class AddGuestPageComponent {
   bid: any;
   successMsg: string | undefined;
 
-  constructor(private guestService: GuestService, private actRoute: ActivatedRoute) {
+  constructor(private guestService: GuestService, private actRoute: ActivatedRoute, private route : Router) {
     actRoute.queryParams.subscribe(p => {
       this.bid = p['bid'];
       this.numberOfGuests = p['guests'];
@@ -73,6 +73,7 @@ export class AddGuestPageComponent {
             });
 
             this.successMsg = "Booking Successful";
+            this.route.navigateByUrl('/bookings')
           },
           error : (err) => {
             console.log(err);

@@ -1,0 +1,25 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-6">
+            <div class="row d-flex justify-content-between mt-4 mb-2">
+                <h3 class="float-start w-50">My Profile</h3>
+            </div>
+            <div class="row">
+                <div class="container-fluid border border-dark p-5" style="text-align: center;">
+                    
+                    <img src="profile.png" alt="profile" width="15%"><br/><br/>
+                    <strong>Username : </strong> {{profile.username}}<br/><br/>
+                    <strong>First Name : </strong> {{profile.firstName}}<br/><br/>
+                    <strong>Last Name : </strong> {{profile.lastName}}<br/><br/>
+                    <strong>Email : </strong> {{profile.email}}<br/><br/>
+                    <strong>Phone : </strong> {{profile.phone}}<br/><br/>
+                    <strong>DOB : </strong> {{profile.dob}}<br/><br/>
+                
+                    <button class="btn-edit" [routerLink]="['/profile/edit']">Edit Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <div class="row d-flex justify-content-between mt-4 mb-2">
+                <h3 class="float-start w-50">Your Bookings</h3>
+                </div>
+            <div class="row">
+                <div class="container-fluid" *ngFor="let b of bookings">
+                    <div class="row mt-3 ms-1 me-4 border border-black">
+                        <div class="col-sm-3 p-2">
+                            <img src="{{b.hotelImages.url}}" alt="img4" width="100%" height="100%">
+                        </div>
+                        <div class="col-sm-7 mt-2">
+                            <h4 class="mb-0">{{b.hotelBooking.hotel.name}}</h4>
+                            <p>Location from City Center : {{b.hotelBooking.hotel.address}}</p>
+                
+                            <div class="row mb-1">
+                                <div class="col-sm-6">
+                                    Booking Id : {{b.hotelBooking.id}} <br/>
+                                    Amount Paid : {{b.hotelBooking.amount}} <br/>
+                            Booking Status : <b>{{b.hotelBooking.approvalStatus}}</b>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    Booking Date : {{b.hotelBooking.bookingDate}} <br/>
+                                    Check-In Date : {{b.hotelBooking.startDate}} <br/>
+                                    Check-Out Date : {{b.hotelBooking.endDate}} <br/>
+                                </div>
+                            </div>
+                            
+                           
+                            
+                
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -11,6 +11,9 @@ import { BookingRequestsPageComponent } from './pages/booking-requests-page/book
 import { VendorPageComponent } from './pages/vendor-page/vendor-page.component';
 import { AuthGuardService } from './service/auth-guard.service';
 import { HotelEditComponent } from './pages/hotel-edit/hotel-edit.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { BookingsComponent } from './pages/bookings/bookings.component';
+import { EditProfilePageComponent } from './pages/edit-profile-page/edit-profile-page.component';
 
 export const routes: Routes = [
     {
@@ -30,6 +33,15 @@ export const routes: Routes = [
     },
     {
         path : "hotel/reservation/confirm", component : AddGuestPageComponent, canActivate: [AuthGuardService]
+    },
+    {
+        path : "profile", component : ProfileComponent
+    },
+    {
+        path : "profile/edit", component : EditProfilePageComponent
+    },
+    {
+        path : "bookings", component : BookingsComponent
     },
     {
         path: 'vendor', component: VendorPageComponent, canActivate: [AuthGuardService], children : [

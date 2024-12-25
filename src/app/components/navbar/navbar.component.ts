@@ -20,7 +20,8 @@ export class NavbarComponent implements OnInit {
   msg: string | undefined;
   token: string | null;
 
-  constructor(private router: Router, private actRoute: ActivatedRoute) {
+  constructor(private router: Router, private actRoute: ActivatedRoute, private searchService: SearchService) {
+    // location.reload();
     let d = new Date();
     this.startDate = d.toISOString().split('T')[0];
     
@@ -53,13 +54,22 @@ export class NavbarComponent implements OnInit {
       else if (this.guests < 1 || this.guests > 10)
         this.msg = "Choose Guests within the range provided";
       else {
+        this.searchService.updateSearch({
+          checkInDate : this.startDate,
+          checkOutDate : this.endDate,
+          guests : this.guests,
+          location : this.location
+        });
         this.router.navigateByUrl("/hotel/search?location="+this.location+"&checkInDate="+this.startDate+"&checkOutDate="+this.endDate+"&guests="+this.guests);
-    
       }
     }
 
     logout() {
       localStorage.removeItem('token');
       this.router.navigateByUrl('/login');
+    }
+
+    profile() {
+      this.router.navigateByUrl('/profile');
     }
 }

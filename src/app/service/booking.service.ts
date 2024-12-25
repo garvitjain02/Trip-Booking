@@ -35,4 +35,9 @@ export class BookingService {
         
         return this.httpClient.put(this.updateApprovalStatusApi+id + "?status=" + status, null);
     }
+
+    private bookingsByUserApi = "http://localhost:8000/api/bookings/user";
+    public bookingsByUser () : Observable<any> {
+        return this.httpClient.get(this.bookingsByUserApi + "?user=" + localStorage.getItem("username"));
+    }
 }

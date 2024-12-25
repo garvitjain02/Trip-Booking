@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { HotelService } from '../../service/hotel.service';
+import { SearchService } from '../../service/search.service';
 
 @Component({
   selector: 'app-hotel-box',
@@ -16,19 +17,39 @@ export class HotelBoxComponent implements OnInit{
   guests: number = 2;
   location: string = '';
 
-  constructor(private actRoute: ActivatedRoute, private hotelService: HotelService, private router: Router) {
+  constructor(private actRoute: ActivatedRoute, private hotelService: HotelService, private router: Router, private searchService: SearchService) {
+    
   }
 
   ngOnInit(): void {
-    this.actRoute.queryParams.subscribe(p => {
-      this.checkInDate = p['checkInDate'];
-      this.checkOutDate = p['checkOutDate'];
-      this.guests = p['guests'];
-      this.location = p['location'];
-    });
 
-    
+    this.searchService.search.subscribe(s => {
+      console.log(s);
+      this.checkInDate = s.checkInDate,
+      this.checkOutDate = s.checkOutDate,
+      this.guests = s.guests,
+      this.location = s.location
+      console.log(this.checkInDate);
+    console.log(this.checkOutDate);
+    console.log(this.guests);
+    console.log(this.location);
     this.getHotel();
+    });
+    
+
+    // this.actRoute.queryParams.subscribe(p => {
+    //   this.checkInDate = p['checkInDate'];
+    //   this.checkOutDate = p['checkOutDate'];
+    //   this.guests = p['guests'];
+    //   this.location = p['location'];
+    // });
+
+    // console.log(this.checkInDate);
+    // console.log(this.checkOutDate);
+    // console.log(this.guests);
+    // console.log(this.location);
+    // this.getHotel();
+    
   }
 
 

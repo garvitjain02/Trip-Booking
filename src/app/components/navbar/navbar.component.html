@@ -13,7 +13,20 @@
             <button class="btn btn-sm btn-outline-success" type="submit" (click)="onSubmit()">Search</button>
         </div>
             <button class="btn btn-outline-primary me-2" type="button" style="float: right; margin-left:30%" [routerLink]="['/login']" *ngIf="token === null">Login</button>
-            <button class="btn btn-outline-success me-2" type="button" style="float: right; margin-left:30%" (click)="logout()" *ngIf="token !== null">Logout</button>
+            <!-- <button class="btn btn-outline-success me-2" type="button" style="float: right; margin-left:30%" (click)="logout()" *ngIf="token !== null">Logout</button> -->
+
+            <div class="dropdown" style="float: right; margin-left:30%" *ngIf="token !== null">
+              <a class="btn btn-outline-success dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                Profile
+              </a>
+            
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><button class="dropdown-item" (click)="profile()">My Profile</button></li>
+                <li><button class="dropdown-item" [routerLink]="['/bookings']">Bookings</button></li>
+                <li><button class="dropdown-item" (click)="logout()">Logout</button></li>
+              </ul>
+            </div>
+
             &nbsp;
           <img src="logo.png" alt="Logo" style="width: 8%"/>
       </div>
