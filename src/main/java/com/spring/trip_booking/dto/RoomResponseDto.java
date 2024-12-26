@@ -13,14 +13,15 @@ public class RoomResponseDto {
 
 	private Room room;
 	private List<Amenity> amenities;
-	private RoomImages image;
+	private List<RoomImages> images;
 	
 	
-	public RoomImages getImage() {
-		return image;
+	
+	public List<RoomImages> getImages() {
+		return images;
 	}
-	public void setImage(RoomImages image) {
-		this.image = image;
+	public void setImages(List<RoomImages> images) {
+		this.images = images;
 	}
 	public Room getRoom() {
 		return room;

@@ -89,8 +89,9 @@ public class RoomController {
 			dto.setRoom(r);
 			
 			List<RoomImages> images = roomImagesService.getAllImagesByRoom(r);
-			if (images.size() > 0)
-			dto.setImage(images.get(0));
+//			if (images.size() > 0)
+//			dto.setImage(images.get(0));
+			dto.setImages(images);
 			
 			List<Amenity> amenities = roomHasAmenityService.getAmenitiesByRoom(r.getId());
 			dto.setAmenities(amenities);
