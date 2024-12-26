@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-guest-page',
-  imports: [NavbarComponent, NgFor, FormsModule, FooterComponent, NgIf],
+  imports: [NavbarComponent, NgFor, FormsModule, NgIf],
   templateUrl: './add-guest-page.component.html',
   styleUrl: './add-guest-page.component.css'
 })
